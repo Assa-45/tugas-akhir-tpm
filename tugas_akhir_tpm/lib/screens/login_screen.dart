@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
 import 'main_screen.dart';
+import 'register_screen.dart';
+import '../services/storage_service.dart';
+import '../services/biometric_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   bool _isLoading = false;
   late AnimationController _fadeCtrl;
   late Animation<double> _fadeAnim;
+  bool _showBiometric = false;
+  bool _biometricEnabled = false;
 
   @override
   void initState() {
@@ -24,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     _fadeCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
     _fadeAnim = CurvedAnimation(parent: _fadeCtrl, curve: Curves.easeOut);
     _fadeCtrl.forward();
+    _initAuthState();
   }
 
   @override
@@ -32,6 +38,16 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     _passCtrl.dispose();
     _fadeCtrl.dispose();
     super.dispose();
+  }
+
+  void _initAuthState() async {
+    final registered = await StorageService.isRegistered();
+    final biometric = await StorageService.isBiometricEnabled();
+
+    setState(() {
+      _showBiometric = registered;
+      _biometricEnabled = biometric;
+    });
   }
 
   void _login() async {
@@ -44,18 +60,31 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     );
   }
 
-  void _biometricLogin() {
-    // local_auth package dipakai di sini
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Biometric authentication'),
-        backgroundColor: AppColors.accent,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+  void _biometricLogin() async {
+    if (!_biometricEnabled) {
+      await StorageService.setBiometricEnabled(true);
+      setState(() => _biometricEnabled = true);
+      return;
+    }
 
+    final isAuthenticated = await BiometricService.authenticate();
+
+    if (!mounted) return;
+
+    if (isAuthenticated) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Autentikasi gagal'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,17 +211,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           ),
                         ),
                       ),
-
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Forgot password?',
-                            style: TextStyle(fontSize: 12, color: AppColors.accent),
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 14),
 
                       // Login button
                       SizedBox(
@@ -213,23 +232,26 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       ),
                       const SizedBox(height: 14),
 
-                      // Divider
-                      const LabelDivider(label: 'or'),
-                      const SizedBox(height: 14),
-
                       // Biometric button
-                      OutlinedButton.icon(
-                        onPressed: _biometricLogin,
-                        icon: const Icon(Icons.fingerprint_rounded, size: 20),
-                        label: const Text('Login with Biometric'),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: AppColors.accent,
-                          side: const BorderSide(color: AppColors.accentLight, width: 1.5),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14)),
+                      if (_showBiometric)
+                        const LabelDivider(label: 'or'),
+                        const SizedBox(height: 14),
+                        OutlinedButton.icon(
+                          onPressed: _biometricLogin,
+                          icon: const Icon(Icons.fingerprint_rounded, size: 20),
+                          label: Text(
+                            _biometricEnabled
+                                ? 'Login Biometrik'
+                                : 'Aktifkan Biometrik',
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppColors.accent,
+                            side: const BorderSide(color: AppColors.accentLight, width: 1.5),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14)),
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
@@ -246,7 +268,12 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                         style: TextStyle(fontSize: 13, color: AppColors.textMuted),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                          ).then((_) => _initAuthState());
+                        },
                         child: const Text(
                           'Register',
                           style: TextStyle(
