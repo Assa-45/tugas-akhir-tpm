@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
+import '../services/geminibot_service.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
@@ -13,6 +14,23 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   final _msgCtrl = TextEditingController();
   final _scrollCtrl = ScrollController();
   bool _isTyping = false;
+
+  String _buildPrompt(String userInput) {
+  return """
+    You are ChromaBot, a beauty assistant specialized in color analysis.
+
+    User undertone: Warm Autumn
+
+    Rules:
+    - Answer in Indonesian
+    - Be friendly, short, and structured
+    - Focus on makeup, outfit, and color advice
+    - Use bullet points when needed
+
+    User question:
+    $userInput
+    """;
+    }
 
   final List<_ChatMessage> _messages = [
     const _ChatMessage(
@@ -39,18 +57,27 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     });
     _scrollToBottom();
 
-    // Simulate API delay (replace with real Claude API call)
-    await Future.delayed(const Duration(milliseconds: 1500));
-    if (!mounted) return;
+    try {
+      final response = await GeminiService.sendMessage(_buildPrompt(text));
 
-    setState(() {
-      _isTyping = false;
-      _messages.add(_ChatMessage(
-        isBot: true,
-        text: _getMockResponse(text),
-        time: _nowTime(),
-      ));
-    });
+      setState(() {
+        _isTyping = false;
+        _messages.add(_ChatMessage(
+          isBot: true,
+          text: response,
+          time: _nowTime(),
+        ));
+      });
+    } catch (e) {
+      setState(() {
+        _isTyping = false;
+        _messages.add(_ChatMessage(
+          isBot: true,
+          text: "Oops, terjadi error 😅",
+          time: _nowTime(),
+        ));
+      });
+    }
     _scrollToBottom();
   }
 

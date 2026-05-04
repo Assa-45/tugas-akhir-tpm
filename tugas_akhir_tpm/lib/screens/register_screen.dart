@@ -185,7 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         decoration: const InputDecoration(
                           labelText: 'Your Name',
                           prefixIcon:
-                              Icon(Icons.people_alt_outlined, size: 18),
+                              Icon(Icons.person_2_rounded, size: 18),
                         ),
                       ),
                       const SizedBox(height: 12),
