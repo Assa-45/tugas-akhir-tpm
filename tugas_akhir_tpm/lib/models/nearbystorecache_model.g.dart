@@ -21,13 +21,14 @@ class NearbyStoreAdapter extends TypeAdapter<NearbyStore> {
       lat: fields[1] as double,
       lng: fields[2] as double,
       distance: fields[3] as double,
+      category: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, NearbyStore obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class NearbyStoreAdapter extends TypeAdapter<NearbyStore> {
       ..writeByte(2)
       ..write(obj.lng)
       ..writeByte(3)
-      ..write(obj.distance);
+      ..write(obj.distance)
+      ..writeByte(4)
+      ..write(obj.category);
   }
 
   @override

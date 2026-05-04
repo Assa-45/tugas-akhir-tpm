@@ -1,0 +1,1611 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2026-05-04T09:37:30Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1459442067",
+        "name": "penjualan pakaian bekas",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.389258,
+          -7.761297
+        ]
+      },
+      "id": "node/1459442067"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1846451288",
+        "baju": "baju",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4101155,
+          -7.7672749
+        ]
+      },
+      "id": "node/1846451288"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2898857980",
+        "name": "Batik Winotosastro",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3674569,
+          -7.8190027
+        ]
+      },
+      "id": "node/2898857980"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3229493996",
+        "name": "Toko Outdoor Flamingo",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.382718,
+          -7.7770092
+        ]
+      },
+      "id": "node/3229493996"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3473031877",
+        "name": "District Fashion",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3921938,
+          -7.7809953
+        ]
+      },
+      "id": "node/3473031877"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3487503071",
+        "name": "Karissa",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656807,
+          -7.8206484
+        ]
+      },
+      "id": "node/3487503071"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4299644500",
+        "addr:housenumber": "km 5.8",
+        "addr:street": "Jalan Kaliurang",
+        "name": "Sale Stock",
+        "opening_hours": "24/7",
+        "shop": "clothes",
+        "website": "https://www.salestockindonesia.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3831716,
+          -7.7553387
+        ]
+      },
+      "id": "node/4299644500"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4581402392",
+        "name": "Massage",
+        "name:de": "Massage",
+        "shop": "cosmetics"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3617381,
+          -7.7920834
+        ]
+      },
+      "id": "node/4581402392"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4585547401",
+        "name": "3 Second",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4109847,
+          -7.7642787
+        ]
+      },
+      "id": "node/4585547401"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4861455721",
+        "addr:housenumber": "PB 1 Lt. 2 C2/7",
+        "addr:street": "Jalan Pabringan",
+        "name": "Kencana Fashion, Metro Bringharjo",
+        "opening_hours": "Mo-Su 09:00-17:00",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3664418,
+          -7.7987544
+        ]
+      },
+      "id": "node/4861455721"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5040105921",
+        "addr:street": "Jalan Pramuka",
+        "name": "Gatya Collection",
+        "opening_hours": "Mo-Sa 07:00-20:00",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3907709,
+          -7.8337354
+        ]
+      },
+      "id": "node/5040105921"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5117049921",
+        "name": "Batik Blontang",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3587904,
+          -7.8104331
+        ]
+      },
+      "id": "node/5117049921"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5155561860",
+        "name": "Sweet Seventeen Kerudung",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4009086,
+          -7.7249802
+        ]
+      },
+      "id": "node/5155561860"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5220697827",
+        "addr:housenumber": "9",
+        "addr:street": "Gang Matahari II",
+        "name": "Batik Huys",
+        "phone": "+62 812 8827 1907",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4368742,
+          -7.7670197
+        ]
+      },
+      "id": "node/5220697827"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5272163321",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3651077,
+          -7.7938928
+        ]
+      },
+      "id": "node/5272163321"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5592850621",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3595669,
+          -7.8090294
+        ]
+      },
+      "id": "node/5592850621"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6009377627",
+        "name": "Rinjani Salon",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3824741,
+          -7.7604643
+        ]
+      },
+      "id": "node/6009377627"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6009377628",
+        "name": "Panca Salon",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3829011,
+          -7.7606644
+        ]
+      },
+      "id": "node/6009377628"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6009384640",
+        "name": "Larasati Salon",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3823972,
+          -7.7637112
+        ]
+      },
+      "id": "node/6009384640"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6009424980",
+        "name": "Luxe Beauty",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3809996,
+          -7.7597019
+        ]
+      },
+      "id": "node/6009424980"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6035133285",
+        "name": "Batik Winotosastro",
+        "opening_hours": "Mo-Su 09:00-17:00",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3676465,
+          -7.8187634
+        ]
+      },
+      "id": "node/6035133285"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6076004685",
+        "name": "Material shop",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3655451,
+          -7.7953787
+        ]
+      },
+      "id": "node/6076004685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6591142886",
+        "brand": "Polo Ralph Lauren",
+        "brand:wikidata": "Q1641437",
+        "name": "Polo Ralph Lauren",
+        "name:en": "Polo Ralph Lauren",
+        "name:tr": "Polo Ralph Lauren",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3654571,
+          -7.7948848
+        ]
+      },
+      "id": "node/6591142886"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7094359386",
+        "addr:housenumber": "26",
+        "addr:street": "Jalan Ibu Ruswo",
+        "name": "Pangestu Batik",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3675545,
+          -7.8035928
+        ]
+      },
+      "id": "node/7094359386"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7277297210",
+        "name": "Dagadu Jogja",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3658321,
+          -7.8030653
+        ]
+      },
+      "id": "node/7277297210"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7811256800",
+        "beauty": "skin_care",
+        "name": "Naavagreen Plus",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3720929,
+          -7.7882792
+        ]
+      },
+      "id": "node/7811256800"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7859897352",
+        "beauty": "spa",
+        "name": "Laseca",
+        "shop": "beauty",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3756397,
+          -7.7852687
+        ]
+      },
+      "id": "node/7859897352"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7868743433",
+        "beauty": "cosmetics",
+        "name": "Valentina Chang",
+        "opening_hours": "Mo-Sa 09:00-16:00; PH closed",
+        "shop": "beauty",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3790101,
+          -7.7871126
+        ]
+      },
+      "id": "node/7868743433"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7877656800",
+        "addr:housenumber": "5",
+        "addr:street": "Jalan Merbabu",
+        "beauty": "cosmetics;skin_care",
+        "name": "Impressions",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3699297,
+          -7.7874787
+        ]
+      },
+      "id": "node/7877656800"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8611730107",
+        "addr:city": "Sleman",
+        "addr:housenumber": "Blok B.12",
+        "addr:postcode": "55581",
+        "addr:street": "Jalan Lempongsari 2",
+        "brand": "Mimi Kebaya",
+        "clothes": "wedding",
+        "currency:rupiah": "yes",
+        "email": "mimikebaya@gmail.com",
+        "name": "Mimi Kebaya",
+        "opening_hours:covid19": "Mo-Sa 09:00-18:00",
+        "operator": "Mimi Meira",
+        "payment:cash": "yes",
+        "payment:debit_cards": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "+6281578876868",
+        "shop": "clothes",
+        "website": "https://www.mimikebaya.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3797166,
+          -7.739701
+        ]
+      },
+      "id": "node/8611730107"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8873947023",
+        "addr:city": "Ngampilan",
+        "addr:housenumber": "28A",
+        "addr:postcode": "55261",
+        "addr:street": "Jalan Letnan Jenderal Suprapto",
+        "clothes": "fashion;printing;clothing;dtf;dtg;screen_manual",
+        "name": "kazuma clothing jogja",
+        "opening_hours": "Mo-Su 10:00-18:00",
+        "payment:cash": "yes",
+        "payment:debit_cards": "yes",
+        "phone": "+62 85713101102",
+        "service": "tshirt printing",
+        "shop": "clothes",
+        "website": "https://kazumaclothingdtg.blogspot.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3561283,
+          -7.7960126
+        ]
+      },
+      "id": "node/8873947023"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9149601497",
+        "beauty": "skin_care",
+        "name": "Natasha Skin Care",
+        "shop": "beauty",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3724752,
+          -7.7840213
+        ]
+      },
+      "id": "node/9149601497"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9155576726",
+        "changing_table": "no",
+        "clothes": "fashion;men;women",
+        "name": "Klambi Apik",
+        "organic": "no",
+        "second_hand": "no",
+        "shop": "clothes",
+        "toilets:access": "customers",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3709815,
+          -7.7862895
+        ]
+      },
+      "id": "node/9155576726"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9159302940",
+        "addr:housenumber": "5",
+        "addr:street": "Jalan Sunaryo",
+        "beauty": "skin_care",
+        "name": "Beauthenica",
+        "shop": "beauty",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3707588,
+          -7.7855344
+        ]
+      },
+      "id": "node/9159302940"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9160286881",
+        "changing_table": "no",
+        "clothes": "traditional",
+        "name": "Kotabaru Boutique House",
+        "opening_hours": "Mo-Sa 09:00-17:00; PH closed",
+        "shop": "clothes",
+        "toilets:access": "customers",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.375758,
+          -7.7848597
+        ]
+      },
+      "id": "node/9160286881"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9175232112",
+        "beauty": "skin_care",
+        "level": "2",
+        "name": "Graha LBC",
+        "shop": "beauty",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3749507,
+          -7.7843705
+        ]
+      },
+      "id": "node/9175232112"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9208542433",
+        "beauty": "spa;skin_care;cosmetics",
+        "name": "Wave",
+        "shop": "beauty",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3848016,
+          -7.7861251
+        ]
+      },
+      "id": "node/9208542433"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9671808300",
+        "name": "SmileMom",
+        "phone": "+62 812 2541 0036",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4343177,
+          -7.7386205
+        ]
+      },
+      "id": "node/9671808300"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9679003156",
+        "name": "Toko Nur Fashion",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4819548,
+          -7.7382252
+        ]
+      },
+      "id": "node/9679003156"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9684875957",
+        "name": "Toko Habibah",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4721191,
+          -7.7440813
+        ]
+      },
+      "id": "node/9684875957"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9740820292",
+        "name": "ADZKYA store",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4333358,
+          -7.7388345
+        ]
+      },
+      "id": "node/9740820292"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9740826259",
+        "name": "Sasanti",
+        "shop": "cosmetics"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.434603,
+          -7.7382593
+        ]
+      },
+      "id": "node/9740826259"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9816082983",
+        "name": "Larissa Galeria Mall",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3790225,
+          -7.7827313
+        ]
+      },
+      "id": "node/9816082983"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9821410950",
+        "branch": "Ambarrukmo Plaza",
+        "brand": "Giordano",
+        "brand:en": "Giordano",
+        "brand:wikidata": "Q4115012",
+        "name": "Giordano",
+        "name:en": "Giordano",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4013646,
+          -7.7827557
+        ]
+      },
+      "id": "node/9821410950"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9833147713",
+        "branch": "Hartono Mall",
+        "brand": "Giordano",
+        "brand:en": "Giordano",
+        "brand:wikidata": "Q4115012",
+        "name": "Giordano",
+        "name:en": "Giordano",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3992154,
+          -7.7587511
+        ]
+      },
+      "id": "node/9833147713"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9875730047",
+        "addr:city": "Yogyakarta",
+        "addr:housenumber": "3",
+        "addr:postcode": "55171",
+        "addr:street": "Jalan Rejowinangun",
+        "clothes": "men;women;fashion;suits",
+        "name": "Ganbate",
+        "opening_hours": "Mo-Fr 08:00-15:00",
+        "phone": "+6288216776060",
+        "shop": "clothes",
+        "website": "https://www.ganbate.net"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3966559,
+          -7.8103068
+        ]
+      },
+      "id": "node/9875730047"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10048454837",
+        "name": "Aurora Fashion Stuff",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4328663,
+          -7.7047528
+        ]
+      },
+      "id": "node/10048454837"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10122794247",
+        "name": "Rara Salon",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.486856,
+          -7.7360657
+        ]
+      },
+      "id": "node/10122794247"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10154529219",
+        "addr:city": "Sleman",
+        "addr:postcode": "55281",
+        "addr:street": "Jalan Agro",
+        "name": "GAMASHIRT",
+        "payment:cash": "yes",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3819892,
+          -7.76667
+        ]
+      },
+      "id": "node/10154529219"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10207238917",
+        "contact:facebook": "voiceofjogja",
+        "contact:instagram": "voiceofjogja",
+        "name": "Voice of Jogja",
+        "name:en": "Voice of Jogja (T-shirt)",
+        "name:fr": "Voice of Jogja (T-shirt)",
+        "name:id": "Voice of Jogja (T-shirt)",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3584407,
+          -7.8097124
+        ]
+      },
+      "id": "node/10207238917"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10656769019",
+        "name": "Pusat Celana Training",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4346015,
+          -7.7379913
+        ]
+      },
+      "id": "node/10656769019"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11313765969",
+        "addr:housenumber": "36b",
+        "addr:postcode": "55283",
+        "addr:street": "Jalan Kyai Haji Wahid Hasyim",
+        "contact:instagram": "zahraastorejogja",
+        "name": "Zahraa Store",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "085800606463",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4018578,
+          -7.7691949
+        ]
+      },
+      "id": "node/11313765969"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11330314199",
+        "addr:city": "Sleman",
+        "addr:housenumber": "17A",
+        "addr:postcode": "55281",
+        "addr:street": "Jalan Janti",
+        "clothes": "wedding",
+        "name": "Modiste Putri Solo",
+        "payment:cash": "yes",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4110342,
+          -7.7853985
+        ]
+      },
+      "id": "node/11330314199"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11533525869",
+        "name": "Griya Pengantin & Busana Heppy",
+        "opening_hours": "Mo-Sa 09:00-17:00",
+        "phone": "+62 821-1665-5566",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4806827,
+          -7.7362579
+        ]
+      },
+      "id": "node/11533525869"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11554891375",
+        "name": "Batik Keris",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3655194,
+          -7.7966919
+        ]
+      },
+      "id": "node/11554891375"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959952",
+        "name": "Rocket Shop",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3652854,
+          -7.7961206
+        ]
+      },
+      "id": "node/11571959952"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959956",
+        "name": "Batik Keris",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.365359,
+          -7.7956711
+        ]
+      },
+      "id": "node/11571959956"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959957",
+        "name": "Toko \"Dewi Ayu\" Batik",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3653582,
+          -7.7956155
+        ]
+      },
+      "id": "node/11571959957"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959958",
+        "name": "Batik Danar hadi",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3653607,
+          -7.7955285
+        ]
+      },
+      "id": "node/11571959958"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959959",
+        "name": "Toko \"Mac Mohan\"",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3653934,
+          -7.7953535
+        ]
+      },
+      "id": "node/11571959959"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959960",
+        "name": "Toko \"Jogja Batik\"",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3654034,
+          -7.7952564
+        ]
+      },
+      "id": "node/11571959960"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959961",
+        "name": "Dewata",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656184,
+          -7.7938113
+        ]
+      },
+      "id": "node/11571959961"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959962",
+        "name": "Rianty",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656283,
+          -7.7937614
+        ]
+      },
+      "id": "node/11571959962"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959963",
+        "name": "Batik Janoko",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656276,
+          -7.7937158
+        ]
+      },
+      "id": "node/11571959963"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959964",
+        "name": "Pangestu",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656361,
+          -7.7936799
+        ]
+      },
+      "id": "node/11571959964"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959965",
+        "name": "Dugem",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656425,
+          -7.7936069
+        ]
+      },
+      "id": "node/11571959965"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959966",
+        "name": "OVJ \"Oblong Van Jogja\"",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656524,
+          -7.7935556
+        ]
+      },
+      "id": "node/11571959966"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959967",
+        "brand": "Polo Ralph Lauren",
+        "brand:wikidata": "Q1641437",
+        "name": "Polo Ralph Lauren",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656595,
+          -7.7935135
+        ]
+      },
+      "id": "node/11571959967"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571959968",
+        "name": "Bratatex",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656631,
+          -7.7934756
+        ]
+      },
+      "id": "node/11571959968"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962070",
+        "name": "Batik Surya",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656801,
+          -7.7933738
+        ]
+      },
+      "id": "node/11571962070"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962072",
+        "name": "adikusumo",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3656836,
+          -7.7932754
+        ]
+      },
+      "id": "node/11571962072"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962073",
+        "name": "Teratai indah",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3657063,
+          -7.7931504
+        ]
+      },
+      "id": "node/11571962073"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962080",
+        "name": "Srikandi Batik",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3658084,
+          -7.7923078
+        ]
+      },
+      "id": "node/11571962080"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962082",
+        "name": "Citra Batik",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3658268,
+          -7.7920219
+        ]
+      },
+      "id": "node/11571962082"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962083",
+        "name": "Raditya",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3658261,
+          -7.7919644
+        ]
+      },
+      "id": "node/11571962083"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962085",
+        "name": "Djakjok",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3658566,
+          -7.7918062
+        ]
+      },
+      "id": "node/11571962085"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962086",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.365851,
+          -7.7916818
+        ]
+      },
+      "id": "node/11571962086"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962087",
+        "name": "OVJ \"Oblong Van Jogja\"",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3658721,
+          -7.7915336
+        ]
+      },
+      "id": "node/11571962087"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962090",
+        "name": "Maruti Batik",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3659241,
+          -7.7910909
+        ]
+      },
+      "id": "node/11571962090"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962091",
+        "name": "Subur Souvenir",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3659303,
+          -7.7910443
+        ]
+      },
+      "id": "node/11571962091"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962092",
+        "name": "Batik Sekar dan Roro",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3659357,
+          -7.7909772
+        ]
+      },
+      "id": "node/11571962092"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962093",
+        "name": "Suryadinata Exclusive Batik",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3659441,
+          -7.7908974
+        ]
+      },
+      "id": "node/11571962093"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11571962094",
+        "name": "Radjo batik",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.365954,
+          -7.7908407
+        ]
+      },
+      "id": "node/11571962094"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12337510574",
+        "shop": "cosmetics"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3709967,
+          -7.7519955
+        ]
+      },
+      "id": "node/12337510574"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12338336984",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3702461,
+          -7.7542443
+        ]
+      },
+      "id": "node/12338336984"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12338747917",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3812349,
+          -7.7588458
+        ]
+      },
+      "id": "node/12338747917"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12338747919",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3812588,
+          -7.7587659
+        ]
+      },
+      "id": "node/12338747919"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12338747925",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3815695,
+          -7.7581267
+        ]
+      },
+      "id": "node/12338747925"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12338747926",
+        "shop": "beauty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3816725,
+          -7.7577922
+        ]
+      },
+      "id": "node/12338747926"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12338747992",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3795264,
+          -7.7564243
+        ]
+      },
+      "id": "node/12338747992"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12357632972",
+        "name": "Maharani Modiste & Konveksi",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3652385,
+          -7.7548928
+        ]
+      },
+      "id": "node/12357632972"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12492287146",
+        "branch": "Babarsari",
+        "name": "Jelita Market",
+        "operator": "CV Jelita Cosmetic",
+        "shop": "cosmetics"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4120869,
+          -7.7741572
+        ]
+      },
+      "id": "node/12492287146"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13704701966",
+        "name": "Baby Malika Head Office",
+        "shop": "clothes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4017204,
+          -7.7201628
+        ]
+      },
+      "id": "node/13704701966"
+    }
+  ]
+}

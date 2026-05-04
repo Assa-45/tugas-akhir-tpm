@@ -16,10 +16,14 @@ class NearbyStore extends HiveObject {
   @HiveField(3)
   double distance;
 
+  @HiveField(4)
+  String category;
+
   NearbyStore({
     required this.name,
     required this.lat,
     required this.lng,
     required this.distance,
+    required this.category,
   });
 }
