@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import '../utils/color_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
 
@@ -22,62 +24,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   late AnimationController _shakeCtrl;
   late Animation<double> _shakeAnim;
 
-  final List<_Question> _questions = [
-    _Question(
-      skinTone: 'Warm undertone — golden glow',
-      skinEmoji: '🌟',
-      skinGradient: [Color(0xFFE8C4A0), Color(0xFFD4A06A)],
-      question: 'Best lip color for this skin tone?',
-      options: [
-        _Option(color: Color(0xFFD4785A), name: 'Terracotta', isCorrect: true),
-        _Option(color: Color(0xFFD4B4E8), name: 'Lavender', isCorrect: false),
-        _Option(color: Color(0xFFFF6B8A), name: 'Hot Pink', isCorrect: false),
-        _Option(color: Color(0xFFA8D4B8), name: 'Mint', isCorrect: false),
-      ],
-    ),
-    _Question(
-      skinTone: 'Cool undertone — rosy pink',
-      skinEmoji: '🌸',
-      skinGradient: [Color(0xFFF0D0D8), Color(0xFFD4A0B0)],
-      question: 'Best blush for this skin tone?',
-      options: [
-        _Option(color: Color(0xFFE890C0), name: 'Rose Pink', isCorrect: true),
-        _Option(color: Color(0xFFC9825A), name: 'Terracotta', isCorrect: false),
-        _Option(color: Color(0xFFD4A76A), name: 'Camel', isCorrect: false),
-        _Option(color: Color(0xFF8B4513), name: 'Sienna', isCorrect: false),
-      ],
-    ),
-    _Question(
-      skinTone: 'Warm autumn — deep & muted',
-      skinEmoji: '🍂',
-      skinGradient: [Color(0xFFC4A882), Color(0xFF8B6040)],
-      question: 'Best eyeshadow palette?',
-      options: [
-        _Option(color: Color(0xFF8B6248), name: 'Mocha Brown', isCorrect: true),
-        _Option(color: Color(0xFFB8D0FF), name: 'Periwinkle', isCorrect: false),
-        _Option(color: Color(0xFFE8A0C0), name: 'Baby Rose', isCorrect: false),
-        _Option(color: Color(0xFFA0D4D8), name: 'Teal Mist', isCorrect: false),
-      ],
-    ),
-    _Question(
-      skinTone: 'Cool summer — soft & muted',
-      skinEmoji: '🌊',
-      skinGradient: [Color(0xFFD0DCF0), Color(0xFFA0B8D8)],
-      question: 'Best outfit color combo?',
-      options: [
-        _Option(color: Color(0xFF8090C0), name: 'Dusty Blue', isCorrect: true),
-        _Option(color: Color(0xFFC9825A), name: 'Terracotta', isCorrect: false),
-        _Option(color: Color(0xFFD4A76A), name: 'Warm Gold', isCorrect: false),
-        _Option(color: Color(0xFF8B4513), name: 'Deep Brown', isCorrect: false),
-      ],
-    ),
-  ];
+  late _Question _current;
 
-  _Question get _current => _questions[_questionIndex % _questions.length];
+  void _nextQuestion() {
+    _current = _generateQuestion();
+  }
 
   @override
   void initState() {
     super.initState();
+    _current = _generateQuestion(); 
     _shakeCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
     _shakeAnim = Tween<double>(begin: 0, end: 8)
         .chain(CurveTween(curve: Curves.elasticIn))
@@ -94,6 +50,43 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         setState(() => _timeLeft--);
       }
     });
+  }
+
+  final Random _random = Random();
+
+  _Question _generateQuestion() {
+    final undertones = ['warm', 'cool'];
+    final selectedTone = undertones[_random.nextInt(undertones.length)];
+
+    final correctOptions =
+        colorBank.where((c) => c.undertone == selectedTone).toList();
+    final wrongOptions =
+        colorBank.where((c) => c.undertone != selectedTone).toList();
+
+    correctOptions.shuffle();
+    wrongOptions.shuffle();
+
+    final correct = correctOptions.first;
+
+    final options = [
+      _Option(color: correct.color, name: correct.name, isCorrect: true),
+      ...wrongOptions.take(3).map((w) =>
+          _Option(color: w.color, name: w.name, isCorrect: false)),
+    ];
+
+    options.shuffle();
+
+    return _Question(
+      skinTone: selectedTone == 'warm'
+          ? 'Warm undertone — golden glow'
+          : 'Cool undertone — rosy pink',
+      skinEmoji: selectedTone == 'warm' ? '🌟' : '🌸',
+      skinGradient: selectedTone == 'warm'
+          ? [Color(0xFFE8C4A0), Color(0xFFD4A06A)]
+          : [Color(0xFFF0D0D8), Color(0xFFD4A0B0)],
+      question: 'Which color matches this skin tone?',
+      options: options,
+    );
   }
 
   void _selectOption(int index) {
@@ -119,6 +112,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         _questionIndex++;
         _selectedOption = null;
         _answered = false;
+        _nextQuestion(); 
       });
     });
   }
@@ -149,13 +143,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: AppColors.bgMain,
       appBar: AppBar(
-        title: const Text('ColorMatch'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.leaderboard_outlined),
-            onPressed: () {},
-          ),
-        ],
+        title: const Text('ColorMatch')
       ),
       body: _gameOver ? _buildGameOver() : _buildGame(),
     );
@@ -404,7 +392,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   Container(width: 0.5, height: 40, color: AppColors.border),
                   _FinalStat(value: '$_questionIndex', label: 'Questions'),
                   Container(width: 0.5, height: 40, color: AppColors.border),
-                  _FinalStat(value: '${(_score / (_questionIndex * 10) * 100).clamp(0, 100).toInt()}%', label: 'Accuracy'),
+                  _FinalStat(value: '${(_questionIndex == 0
+                    ? 0
+                    : (_score / (_questionIndex * 10) * 100)).clamp(0, 100).toInt()}%', label: 'Accuracy'),
                 ],
               ),
             ),
@@ -415,15 +405,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 onPressed: _restartGame,
                 icon: const Icon(Icons.refresh_rounded),
                 label: const Text('Play Again'),
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.leaderboard_outlined),
-                label: const Text('View Leaderboard'),
               ),
             ),
           ],
