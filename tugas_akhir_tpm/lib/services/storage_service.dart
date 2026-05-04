@@ -10,10 +10,12 @@ class StorageService {
   static Future<void> saveUser({
     required String email,
     required String passwordHash,
+    required String name,  
   }) async {
     final box = await _box();
     await box.put('email', email);
     await box.put('password', passwordHash);
+    await box.put('name', name);
     await box.put('isRegistered', true);
   }
 
@@ -40,5 +42,10 @@ class StorageService {
   static Future<String?> getPassword() async {
     final box = await _box();
     return box.get('password');
+  }
+
+  static Future<String?> getName() async {
+    final box = await _box();
+    return box.get('name');
   }
 }

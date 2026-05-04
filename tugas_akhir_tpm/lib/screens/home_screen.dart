@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
+import '../services/storage_service.dart';
 import 'game_screen.dart';
 import 'chatbot_screen.dart';
 import 'converter_screen.dart';
 import 'nearby_screen.dart';
 import 'scan_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _name = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadName();
+  }
+
+  void _loadName() async {
+    final name = await StorageService.getName();
+    setState(() => _name = name ?? 'there');
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Hi, Sarah ✨',
+                          'Hi, $_name!',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w700,

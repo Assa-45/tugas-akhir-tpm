@@ -58,8 +58,6 @@ class _ScanScreenState extends State<ScanScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          CameraPreview(_controller!),
-
           Stack(
             children: [
               CameraPreview(_controller!),

@@ -3,6 +3,7 @@ import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
 import 'bottom_nav.dart';
 import 'register_screen.dart';
+import '../services/auth_service.dart';
 import '../services/storage_service.dart';
 import '../services/biometric_service.dart';
 
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   late Animation<double> _fadeAnim;
   bool _showBiometric = false;
   bool _biometricEnabled = false;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -51,13 +53,46 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   }
 
   void _login() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    if (_emailCtrl.text.isEmpty || _passCtrl.text.isEmpty) {
+      setState(() {
+        _errorMessage = "Email and password cannot be empty";
+        _isLoading = false; 
+      });
+      return;
+    }
+
     setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 1));
-    if (!mounted) return;
-    setState(() => _isLoading = false);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const MainScreen()),
-    );
+
+    try {
+      final bool success = await AuthService.login(
+        _emailCtrl.text.trim(), 
+        _passCtrl.text
+      );
+
+      if (!mounted) return;
+
+      if (success) {
+        setState(() => _isLoading = false);
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const MainScreen()),
+        );
+      } else {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = "Your email or password is wrong";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _errorMessage = "There's some mistake in system";
+      });
+    }
   }
 
   void _biometricLogin() async {
@@ -211,6 +246,29 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           ),
                         ),
                       ),
+                      // logika error
+                      if (_errorMessage != null) ...[
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.error_outline, color: Colors.red, size: 16),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  _errorMessage!,
+                                  style: const TextStyle(color: Colors.red, fontSize: 12, fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                       const SizedBox(height: 14),
 
                       // Login button
@@ -233,9 +291,9 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                       const SizedBox(height: 14),
 
                       // Biometric button
-                      if (_showBiometric)
+                      if (_showBiometric)...[
                         const LabelDivider(label: 'or'),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: 21),
                         OutlinedButton.icon(
                           onPressed: _biometricLogin,
                           icon: const Icon(Icons.fingerprint_rounded, size: 20),
@@ -252,6 +310,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                 borderRadius: BorderRadius.circular(14)),
                           ),
                         ),
+                      ]
                     ],
                   ),
                 ),

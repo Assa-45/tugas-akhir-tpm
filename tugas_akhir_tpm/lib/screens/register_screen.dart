@@ -14,6 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     with TickerProviderStateMixin {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
+  final nameCtrl = TextEditingController();
 
   bool _obscurePass = true;
   bool _isLoading = false;
@@ -47,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     if (emailCtrl.text.trim().isEmpty ||
         passCtrl.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email & Password wajib diisi")),
+        const SnackBar(content: Text("Email & Password cannot be empty")),
       );
       return;
     }
@@ -59,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     await StorageService.saveUser(
       email: emailCtrl.text.trim(),
       passwordHash: hashed,
+      name: nameCtrl.text.trim(), 
     );
 
     setState(() => _isLoading = false);
@@ -175,6 +177,18 @@ class _RegisterScreenState extends State<RegisterScreen>
                         ),
                       ),
                       const SizedBox(height: 20),
+
+                      // Username
+                      TextField(
+                        controller: nameCtrl,
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                          labelText: 'Your Name',
+                          prefixIcon:
+                              Icon(Icons.people_alt_outlined, size: 18),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
 
                       // Email
                       TextField(
