@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart'; 
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
 
@@ -14,17 +17,13 @@ class _ConverterScreenState extends State<ConverterScreen>
   late TabController _tabCtrl;
   final _amountCtrl = TextEditingController(text: '850000');
   String _baseCurrency = 'IDR';
+  bool _isLoading = false; // State untuk loading
 
-  // Mock exchange rates (replace with API call)
+  // Rate awal (Mock/Fallback jika API gagal)
   final Map<String, double> _rates = {
-    'IDR': 1.0,
-    'USD': 0.000062,
-    'EUR': 0.000057,
-    'GBP': 0.000049,
-    'KRW': 0.082,
-    'SGD': 0.000084,
-    'AUD': 0.000095,
-    'JPY': 0.0094,
+    'IDR': 1.0, 'USD': 0.000062, 'EUR': 0.000057,
+    'GBP': 0.000049, 'KRW': 0.082, 'SGD': 0.000084,
+    'AUD': 0.000095, 'JPY': 0.0094,
   };
 
   final Map<String, String> _currencyFlags = {
@@ -39,71 +38,78 @@ class _ConverterScreenState extends State<ConverterScreen>
     'AUD': 'A\$', 'JPY': '¥',
   };
 
-  double get _baseAmount => double.tryParse(_amountCtrl.text.replaceAll(',', '')) ?? 0;
-
-  String _convertAmount(String toCurrency) {
-    final rate = _rates[toCurrency]! / _rates[_baseCurrency]!;
-    final converted = _baseAmount * rate;
-    if (toCurrency == 'IDR') {
-      return 'Rp ${_formatNumber(converted)}';
-    } else if (converted > 1000) {
-      return '${_currencySymbols[toCurrency]} ${_formatNumber(converted)}';
-    } else {
-      return '${_currencySymbols[toCurrency]} ${converted.toStringAsFixed(2)}';
-    }
-  }
-
-  String _formatNumber(double n) {
-    if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(2)}M';
-    if (n >= 1000) return n.toStringAsFixed(0).replaceAllMapped(
-        RegExp(r'(\d)(?=(\d{3})+$)'), (m) => '${m[1]},');
-    return n.toStringAsFixed(2);
-  }
-
-  // Time zones (offset from UTC in hours)
   final Map<String, int> _timeZones = {
     'WIB': 7,
     'WITA': 8,
     'WIT': 9,
-    'London': 1, // BST (summer) — use 0 for GMT in winter
-    'New York': -4,
+    'London': 1,   // BST (British Summer Time)
+    'New York': -4, // EDT (Eastern Daylight Time)
     'Tokyo': 9,
     'Seoul': 9,
   };
 
+  // Flag Emoji untuk tiap zona waktu
   final Map<String, String> _tzFlags = {
-    'WIB': '🇮🇩', 'WITA': '🇮🇩', 'WIT': '🇮🇩',
-    'London': '🇬🇧', 'New York': '🇺🇸',
-    'Tokyo': '🇯🇵', 'Seoul': '🇰🇷',
+    'WIB': '🇮🇩', 
+    'WITA': '🇮🇩', 
+    'WIT': '🇮🇩',
+    'London': '🇬🇧', 
+    'New York': '🇺🇸',
+    'Tokyo': '🇯🇵', 
+    'Seoul': '🇰🇷',
   };
-
-  String _getTime(int offsetHours) {
-    final utcNow = DateTime.now().toUtc();
-    final local = utcNow.add(Duration(hours: offsetHours));
-    final h = local.hour.toString().padLeft(2, '0');
-    final m = local.minute.toString().padLeft(2, '0');
-    return '$h:$m';
-  }
-
-  String _getDay(int offsetHours) {
-    final utcNow = DateTime.now().toUtc();
-    final local = utcNow.add(Duration(hours: offsetHours));
-    final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return days[local.weekday - 1];
-  }
 
   @override
   void initState() {
     super.initState();
     _tabCtrl = TabController(length: 2, vsync: this);
     _amountCtrl.addListener(() => setState(() {}));
+    _fetchLiveRates(); // Panggil API saat pertama buka
   }
 
-  @override
-  void dispose() {
-    _tabCtrl.dispose();
-    _amountCtrl.dispose();
-    super.dispose();
+  // FUNGSI UNTUK MENGAMBIL DATA API
+  Future<void> _fetchLiveRates() async {
+    setState(() => _isLoading = true);
+    
+    // Mengambil API Key dari file .env
+    final apiKey = dotenv.env['EXCHANGE_RATE_API_KEY'];
+    final url = Uri.parse('https://v6.exchangerate-api.com/v6/$apiKey/latest/IDR');
+
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final Map<String, dynamic> apiRates = data['conversion_rates'];
+        
+        setState(() {
+          // Update nilai _rates hanya untuk mata uang yang ada di list kita
+          _rates.keys.forEach((key) {
+            if (apiRates.containsKey(key)) {
+              _rates[key] = apiRates[key]!.toDouble();
+            }
+          });
+        });
+      }
+    } catch (e) {
+      debugPrint('Error fetching rates: $e');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  String _convertAmount(String toCurrency) {
+    double baseAmount = double.tryParse(_amountCtrl.text.replaceAll(',', '')) ?? 0;
+    // Rumus: (Jumlah / Rate Mata Uang Dasar) * Rate Mata Uang Tujuan
+    final converted = (baseAmount / _rates[_baseCurrency]!) * _rates[toCurrency]!;
+    
+    if (toCurrency == 'IDR') return 'Rp ${_formatNumber(converted)}';
+    return '${_currencySymbols[toCurrency]} ${converted > 1000 ? _formatNumber(converted) : converted.toStringAsFixed(2)}';
+  }
+
+  String _formatNumber(double n) {
+    if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(2)}M';
+    return n.toStringAsFixed(0).replaceAllMapped(
+        RegExp(r'(\d)(?=(\d{3})+$)'), (m) => '${m[1]},');
   }
 
   @override
@@ -112,12 +118,18 @@ class _ConverterScreenState extends State<ConverterScreen>
       backgroundColor: AppColors.bgMain,
       appBar: AppBar(
         title: const Text('Converter'),
+        actions: [
+          // Tambahkan tombol refresh di pojok kanan atas
+          IconButton(
+            icon: _isLoading 
+                ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.accent))
+                : const Icon(Icons.refresh),
+            onPressed: _isLoading ? null : _fetchLiveRates,
+          )
+        ],
         bottom: TabBar(
           controller: _tabCtrl,
           indicatorColor: AppColors.accent,
-          indicatorWeight: 2,
-          labelColor: AppColors.accentDark,
-          unselectedLabelColor: AppColors.textMuted,
           tabs: const [
             Tab(icon: Icon(Icons.currency_exchange_rounded, size: 18), text: 'Currency'),
             Tab(icon: Icon(Icons.schedule_rounded, size: 18), text: 'Time Zones'),
@@ -126,9 +138,32 @@ class _ConverterScreenState extends State<ConverterScreen>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_buildCurrencyTab(), _buildTimeTab()],
+        children: [
+          // Bungkus tab currency dengan Stack untuk menampilkan loading overlay jika perlu
+          _isLoading 
+            ? const Center(child: CircularProgressIndicator(color: AppColors.accent)) 
+            : _buildCurrencyTab(), 
+          _buildTimeTab()
+        ],
       ),
     );
+  }
+
+  // Mendapatkan jam saat ini berdasarkan offset
+  String _getTime(int offsetHours) {
+    final utcNow = DateTime.now().toUtc();
+    final local = utcNow.add(Duration(hours: offsetHours));
+    final h = local.hour.toString().padLeft(2, '0');
+    final m = local.minute.toString().padLeft(2, '0');
+    return '$h:$m';
+  }
+
+  // Mendapatkan nama hari (Singkat)
+  String _getDay(int offsetHours) {
+    final utcNow = DateTime.now().toUtc();
+    final local = utcNow.add(Duration(hours: offsetHours));
+    final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return days[local.weekday - 1];
   }
 
   Widget _buildCurrencyTab() {
