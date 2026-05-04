@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
+import '../services/storage_service.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -14,6 +15,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _notifPromo = true;
   bool _notifTip = true;
   bool _notifSale = false;
+  List<Map> _feedbacks = [];
+  String _name = '';
+  String _email = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFeedbacks();
+    _loadName();
+    _loadEmail();
+  }
+
+  void _loadFeedbacks() async {
+    final data = await StorageService.getFeedbacks();
+
+    data.sort((a, b) =>
+        DateTime.parse(b['createdAt'])
+            .compareTo(DateTime.parse(a['createdAt'])));
+
+    setState(() => _feedbacks = data);
+  }
+
+  void _loadName() async {
+    final name = await StorageService.getName();
+    setState(() => _name = name ?? 'there');
+  }
+
+  void _loadEmail() async {
+    final email = await StorageService.getEmail();
+    setState(() => _email = email ?? 'there');
+  }
+
+  String _formatTime(String iso) {
+    final time = DateTime.parse(iso);
+    final diff = DateTime.now().difference(time);
+
+    if (diff.inMinutes < 1) return "Baru saja";
+    if (diff.inHours < 1) return "${diff.inMinutes} menit lalu";
+    if (diff.inDays < 1) return "${diff.inHours} jam lalu";
+    return "${diff.inDays} hari lalu";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -241,10 +283,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _InfoRow(icon: Icons.mail_outline_rounded, label: 'Email', value: 'sarah.amelia@email.com'),
                       const Divider(height: 16),
                       _InfoRow(icon: Icons.phone_outlined, label: 'Phone', value: '+62 812 3456 7890'),
-                      const Divider(height: 16),
-                      _InfoRow(icon: Icons.cake_outlined, label: 'Birthday', value: '14 February 2002'),
-                      const Divider(height: 16),
-                      _InfoRow(icon: Icons.location_on_outlined, label: 'City', value: 'Yogyakarta, Indonesia'),
                     ],
                   ),
                 ),
@@ -284,23 +322,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // ── App Settings ──
-                SectionHeader(title: 'App Settings'),
+                // ── Feedback ──
+                SectionHeader(title: 'My Feedback'),
                 const SizedBox(height: 12),
                 InfoCard(
-                  child: Column(
-                    children: [
-                      _MenuRow(icon: Icons.fingerprint_rounded, label: 'Biometric Login', onTap: () {}),
-                      const Divider(height: 16),
-                      _MenuRow(icon: Icons.lock_outline_rounded, label: 'Change Password', onTap: () {}),
-                      const Divider(height: 16),
-                      _MenuRow(icon: Icons.language_outlined, label: 'Language', trailing: 'Indonesia', onTap: () {}),
-                      const Divider(height: 16),
-                      _MenuRow(icon: Icons.help_outline_rounded, label: 'Help & FAQ', onTap: () {}),
-                      const Divider(height: 16),
-                      _MenuRow(icon: Icons.info_outline_rounded, label: 'About ChromaMe', trailing: 'v1.0.0', onTap: () {}),
-                    ],
-                  ),
+                  child: _feedbacks.isEmpty
+                      ? const Text(
+                          "Belum ada feedback",
+                          style: TextStyle(fontSize: 12, color: AppColors.textMuted),
+                        )
+                      : Column(
+                          children: _feedbacks.map((fb) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "⭐ ${fb['rating']} • ${fb['mood']}",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  fb['kesan'],
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "Saran: ${fb['saran']}",
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    color: AppColors.textMuted,
+                                  ),
+                                ),
+                                Text(
+                                  _formatTime(fb['createdAt']),
+                                  style: const TextStyle(fontSize: 10, color: AppColors.textMuted),
+                                ),
+                                const Divider(height: 20),
+                              ],
+                            );
+                          }).toList(),
+                        ),
                 ),
                 const SizedBox(height: 20),
 
@@ -314,7 +378,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.error,
                       side: const BorderSide(color: AppColors.error),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                   ),
@@ -422,7 +486,6 @@ class _InfoRow extends StatelessWidget {
             ],
           ),
         ),
-        const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
       ],
     );
   }
@@ -488,7 +551,6 @@ class _MenuRow extends StatelessWidget {
           if (trailing != null)
             Text(trailing!, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
           const SizedBox(width: 4),
-          const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
         ],
       ),
     );

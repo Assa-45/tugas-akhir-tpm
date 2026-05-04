@@ -48,4 +48,17 @@ class StorageService {
     final box = await _box();
     return box.get('name');
   }
+
+  static Future<void> saveFeedback(Map<String, dynamic> data) async {
+    final box = await _box();
+    final List list = box.get('feedbacks', defaultValue: []);
+    list.add(data);
+    await box.put('feedbacks', list);
+  }
+
+  static Future<List<Map>> getFeedbacks() async {
+    final box = await _box();
+    return List<Map>.from(box.get('feedbacks', defaultValue: []));
+  }
 }
+

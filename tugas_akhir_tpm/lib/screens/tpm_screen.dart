@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
+import '../services/storage_service.dart';
 
 class TpmScreen extends StatefulWidget {
   const TpmScreen({super.key});
@@ -24,19 +25,46 @@ class _TpmScreenState extends State<TpmScreen> {
     _MoodOption('🥰', 'Sangat Suka'),
   ];
 
-  void _submit() {
+ void _submit() async {
     if (_saranCtrl.text.isEmpty || _kesanCtrl.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Harap isi semua kolom!'),
           backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
       return;
     }
-    setState(() => _submitted = true);
+
+    final mood = _selectedMood >= 0
+        ? "${_moods[_selectedMood].emoji} ${_moods[_selectedMood].label}"
+        : "-";
+
+    await StorageService.saveFeedback({
+      'kesan': _kesanCtrl.text,
+      'saran': _saranCtrl.text,
+      'rating': _rating.toInt(),
+      'mood': mood,
+      'createdAt': DateTime.now().toIso8601String(),
+    });
+
+    // ✅ POPUP SUKSES
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Berhasil"),
+        content: const Text("Berhasil mengirimkan feedback"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() => _submitted = true);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
