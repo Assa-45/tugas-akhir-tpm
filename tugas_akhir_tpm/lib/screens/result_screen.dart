@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
+import '../utils/analysis_mapper.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  final Map<String, dynamic> data;
+
+  const ResultScreen({super.key, required this.data});
+
 
   @override
   Widget build(BuildContext context) {
+    final mapped = AnalysisMapper.mapAll(data);
+    final season = data['season'] ?? "Unknown";
+    final undertone = data['undertone'] ?? "-";
+    final brightness = data['brightness'] ?? "-";
+    final contrast = data['contrast_level'] ?? "-";
+
+    final bestColors = List<String>.from(data['best_colors'] ?? []);
+    final avoidColors = List<String>.from(data['avoid_colors'] ?? []);
+    final tips = data['styling_tips'] ?? "";
+
+    final features = mapped['faceFeatures'] as List;
+    final harmony = mapped['harmony'] as Map<String, double>;
+    final glowTips = List<String>.from(
+      data['glow_tips'] ?? [
+        "Use colors that match your undertone",
+        "Avoid extreme contrast outfits",
+      ],
+    );
+
+    
     return Scaffold(
       backgroundColor: AppColors.bgMain,
       body: CustomScrollView(
@@ -77,18 +101,17 @@ class ResultScreen extends StatelessWidget {
                           textColor: Colors.white,
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          'Warm Autumn',
-                          style: TextStyle(
+                        Text(
+                          season,
+                          style: const TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
-                            letterSpacing: -0.5,
                           ),
                         ),
-                        const Text(
-                          'Deep · Muted · Earthy',
-                          style: TextStyle(fontSize: 13, color: Colors.white70),
+                        Text(
+                          "$brightness · $contrast · $undertone",
+                          style: const TextStyle(fontSize: 13, color: Colors.white70),
                         ),
                       ],
                     ),
@@ -104,14 +127,18 @@ class ResultScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
 
                 // ── Face Features ──
+
                 Row(
-                  children: [
-                    _FaceFeaturePill(emoji: '🌞', label: 'Warm Golden', sub: 'Skin'),
-                    const SizedBox(width: 8),
-                    _FaceFeaturePill(emoji: '👁️', label: 'Warm Dark', sub: 'Eyes'),
-                    const SizedBox(width: 8),
-                    _FaceFeaturePill(emoji: '💇', label: 'Deep Brown', sub: 'Hair'),
-                  ],
+                  children: features.map<Widget>((f) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: _FaceFeaturePill(
+                        emoji: f['emoji'],
+                        label: f['label'],
+                        sub: f['sub'],
+                      ),
+                    );
+                  }).toList(),
                 ),
                 const SizedBox(height: 20),
 
@@ -121,13 +148,11 @@ class ResultScreen extends StatelessWidget {
                 InfoCard(
                   child: Column(
                     children: [
-                      HarmonyBar(leftLabel: 'Warm', rightLabel: 'Cool', value: 0.82),
-                      const SizedBox(height: 12),
-                      HarmonyBar(leftLabel: 'Muted', rightLabel: 'Bright', value: 0.25),
-                      const SizedBox(height: 12),
-                      HarmonyBar(leftLabel: 'Deep', rightLabel: 'Light', value: 0.76),
-                      const SizedBox(height: 12),
-                      HarmonyBar(leftLabel: 'Soft', rightLabel: 'Clear', value: 0.38),
+                      HarmonyBar(
+                        leftLabel: 'Warm',
+                        rightLabel: 'Cool',
+                        value: (harmony['warmCool']) as double,
+                      ),
                     ],
                   ),
                 ),
@@ -151,15 +176,15 @@ class ResultScreen extends StatelessWidget {
                             ]),
                             const SizedBox(height: 10),
                             Wrap(
-                              spacing: 6, runSpacing: 6,
-                              children: const [
-                                ColorSwatchTile(color: AppColors.swatchSienna, label: 'Sienna', size: 32),
-                                ColorSwatchTile(color: AppColors.swatchCopper, label: 'Copper', size: 32),
-                                ColorSwatchTile(color: AppColors.swatchMoss, label: 'Moss', size: 32),
-                                ColorSwatchTile(color: AppColors.swatchCamel, label: 'Camel', size: 32),
-                                ColorSwatchTile(color: AppColors.swatchBurgundy, label: 'Burgundy', size: 32),
-                                ColorSwatchTile(color: AppColors.swatchTerracotta, label: 'Terra', size: 32),
-                              ],
+                              spacing: 6,
+                              runSpacing: 6,
+                              children: bestColors.map((hex) {
+                                return ColorSwatchTile(
+                                  color: _hexToColor(hex),
+                                  label: hex.replaceAll("#", ""),
+                                  size: 32,
+                                );
+                              }).toList(),
                             ),
                           ],
                         ),
@@ -179,15 +204,15 @@ class ResultScreen extends StatelessWidget {
                             ]),
                             const SizedBox(height: 10),
                             Wrap(
-                              spacing: 6, runSpacing: 6,
-                              children: [
-                                ColorSwatchTile(color: const Color(0xFFC9B8E8).withOpacity(0.6), label: 'Lavndr', size: 32),
-                                ColorSwatchTile(color: const Color(0xFFA8C8E8).withOpacity(0.6), label: 'Ice Blue', size: 32),
-                                ColorSwatchTile(color: const Color(0xFFF0A8C0).withOpacity(0.6), label: 'Baby Pk', size: 32),
-                                ColorSwatchTile(color: const Color(0xFFB8D8C0).withOpacity(0.6), label: 'Mint', size: 32),
-                                ColorSwatchTile(color: const Color(0xFFD0D0D0).withOpacity(0.6), label: 'Ash', size: 32),
-                                ColorSwatchTile(color: const Color(0xFFE8E0FF).withOpacity(0.6), label: 'Orchid', size: 32),
-                              ],
+                              spacing: 6,
+                              runSpacing: 6,
+                              children: avoidColors.map((hex) {
+                                return ColorSwatchTile(
+                                  color: _hexToColor(hex).withOpacity(0.6),
+                                  label: hex.replaceAll("#", ""),
+                                  size: 32,
+                                );
+                              }).toList(),
                             ),
                           ],
                         ),
@@ -195,28 +220,6 @@ class ResultScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-
-                // ── Neutrals & Accents ──
-                Row(children: [
-                  Expanded(child: _NeutralCard(
-                    title: 'Best Neutrals',
-                    colors: [
-                      const Color(0xFFF5E6D3), const Color(0xFFC4A882),
-                      const Color(0xFF6B5040), const Color(0xFF2C1B12),
-                    ],
-                    labels: ['Ivory', 'Camel', 'Brown', 'Black'],
-                  )),
-                  const SizedBox(width: 8),
-                  Expanded(child: _NeutralCard(
-                    title: 'Best Accents',
-                    colors: [
-                      AppColors.swatchCopper, AppColors.swatchMoss,
-                      AppColors.swatchBurgundy, AppColors.swatchCamel,
-                    ],
-                    labels: ['Terra', 'Olive', 'Burg', 'Gold'],
-                  )),
-                ]),
                 const SizedBox(height: 20),
 
                 // ── Makeup Guide ──
@@ -334,7 +337,7 @@ class ResultScreen extends StatelessWidget {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text('ChromaBot says',
                                 style: TextStyle(
                                     fontSize: 11,
@@ -342,7 +345,7 @@ class ResultScreen extends StatelessWidget {
                                     color: AppColors.accentDark)),
                             SizedBox(height: 4),
                             Text(
-                              '"Warm earth tones suit you beautifully! Try terracotta lipstick paired with an olive green top — your complexion will absolutely glow. Avoid cool-toned makeup as it can wash out your natural warmth."',
+                              '"$tips"',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.textSecondary,
@@ -378,17 +381,17 @@ class ResultScreen extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               color: AppColors.accentDark)),
                       const SizedBox(height: 12),
-                      Row(children: [
-                        Expanded(child: _GlowTip(icon: '☀️', text: 'Wear warm earth tones near your face')),
-                        const SizedBox(width: 8),
-                        Expanded(child: _GlowTip(icon: '💍', text: 'Gold jewelry complements your undertone')),
-                      ]),
-                      const SizedBox(height: 8),
-                      Row(children: [
-                        Expanded(child: _GlowTip(icon: '💋', text: 'Peachy blush + brick rose lip = power combo')),
-                        const SizedBox(width: 8),
-                        Expanded(child: _GlowTip(icon: '👗', text: 'High contrast earth colors make you pop')),
-                      ]),
+                      Column(
+                        children: glowTips.map((tip) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: _GlowTip(
+                              icon: '✨',
+                              text: tip,
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ],
                   ),
                 ),
@@ -401,6 +404,11 @@ class ResultScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Color _hexToColor(String hex) {
+  final cleaned = hex.replaceAll("#", "");
+  return Color(int.parse("0xFF$cleaned"));
 }
 
 // Sub-widgets

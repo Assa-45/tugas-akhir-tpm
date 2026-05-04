@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../services/facedetector_service.dart';
+import '../services/ai_service.dart';
+import 'result_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -38,16 +40,53 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Future<void> captureAndProcess() async {
-    setState(() => isProcessing = true);
+  setState(() => isProcessing = true);
 
+  try {
     final file = await _controller!.takePicture();
 
+    /// 🔹 Step 1: local processing (MediaPipe + RGB)
     final result = await processImage(file.path);
 
-    print(result); // nanti dikirim ke API
+    /// 🔹 Step 2: AI processing (bungkus try-catch)
+    Map<String, dynamic> aiResult = {};
 
-    setState(() => isProcessing = false);
+    try {
+      aiResult = await AIService.analyzeFace(result);
+    } catch (e) {
+      print("AI Error: $e");
+
+      /// fallback biar app ga mati
+      aiResult = {
+        "season": "Unknown",
+        "best_colors": [],
+        "avoid_colors": [],
+        "styling_tips": "Unable to generate tips",
+        "confidence": 0.0,
+      };
+    }
+
+    /// 🔹 Step 3: gabung hasil
+    final finalResult = {
+      ...result,
+      ...aiResult,
+    };
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ResultScreen(data: finalResult),
+      ),
+    );
+
+    print(finalResult);
+
+  } catch (e) {
+    print("Capture Error: $e");
   }
+
+  setState(() => isProcessing = false);
+}
 
   @override
   Widget build(BuildContext context) {
