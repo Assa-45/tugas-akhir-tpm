@@ -122,8 +122,12 @@ class _RegisterScreenState extends State<RegisterScreen>
                           ),
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        child: const Center(
-                          child: Text('💄', style: TextStyle(fontSize: 36)),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            height: 60,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -161,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Text(
-                        'Sign up ✨',
+                        'Sign up',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

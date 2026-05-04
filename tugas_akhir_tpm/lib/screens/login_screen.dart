@@ -201,8 +201,12 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                             )
                           ],
                         ),
-                        child: const Center(
-                          child: Text('💄', style: TextStyle(fontSize: 36)),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            height: 60,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -249,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Text(
-                        'Welcome back 👋',
+                        'Welcome back!',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
