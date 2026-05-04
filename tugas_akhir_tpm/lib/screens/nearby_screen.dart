@@ -19,7 +19,7 @@ class NearbyScreen extends StatefulWidget {
 
 class _NearbyScreenState extends State<NearbyScreen> {
   int _selectedFilter = 0;
-  final List<String> _filters = ['All', 'Makeup', 'Bodycare', 'Clothes'];
+  final List<String> _filters = ['All', 'Makeup', 'Beauty', 'Clothes'];
   String? _selectedStoreName;
 
   List<_StoreData> _stores = [];
@@ -36,6 +36,15 @@ class _NearbyScreenState extends State<NearbyScreen> {
   void initState() {
     super.initState();
     loadGeoJsonStores();
+  }
+
+  final TextEditingController _searchCtrl = TextEditingController();
+  String _searchQuery = "";
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
   }
 
   Future<void> loadGeoJsonStores() async {
@@ -145,7 +154,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
       case "Makeup":
         base = const Color(0xFFE57373);
         break;
-      case "Bodycare":
+      case "Beauty":
         base = const Color(0xFF64B5F6);
         break;
       case "Clothes":
@@ -162,7 +171,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
       case "cosmetics":
         return "Makeup";
       case "beauty":
-        return "Bodycare";
+        return "Beauty";
       case "clothes":
         return "Clothes";
       default:
@@ -174,7 +183,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
     switch (category) {
       case "Makeup":
         return Icons.face_retouching_natural_outlined;
-      case "Bodycare":
+      case "Beauty":
         return Icons.spa_outlined;
       case "Clothes":
         return Icons.shopping_bag_rounded;
@@ -187,7 +196,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
     switch (category) {
       case "Makeup":
         return AppColors.primaryLight;
-      case "Bodycare":
+      case "Beauty":
         return AppColors.accentLight;
       case "Clothes":
         return AppColors.secondaryLight;
@@ -197,9 +206,34 @@ class _NearbyScreenState extends State<NearbyScreen> {
   }
 
   List<_StoreData> get _filteredStores {
-    if (_selectedFilter == 0) return _stores;
-    final filter = _filters[_selectedFilter];
-    return _stores.where((s) => s.category == filter).toList();
+    List<_StoreData> filtered = _stores;
+
+    // Filter berdasarkan kategori
+    if (_selectedFilter != 0) {
+      final filter = _filters[_selectedFilter];
+      filtered = filtered.where((s) => s.category == filter).toList();
+    }
+
+    // Filter berdasarkan input search (nama toko)
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered
+          .where((s) => s.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+          .toList();
+    } else {
+     Center(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Text(
+                'Store not found',
+                        style: TextStyle(fontSize: 10, color: AppColors.textMuted),
+              ),
+            ],
+          ),
+      );
+    }
+
+    return filtered;
   }
 
   @override
@@ -217,6 +251,41 @@ class _NearbyScreenState extends State<NearbyScreen> {
       appBar: AppBar(title: const Text("Nearby Stores")),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+            child: TextField(
+              controller: _searchCtrl,
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: "Search beauty stores...",
+                prefixIcon: const Icon(Icons.search_rounded, size: 20),
+                suffixIcon: _searchQuery.isNotEmpty 
+                  ? IconButton(
+                      icon: const Icon(Icons.clear_rounded, size: 20),
+                      onPressed: () {
+                        _searchCtrl.clear();
+                        setState(() => _searchQuery = "");
+                      },
+                    )
+                  : null,
+                filled: true,
+                fillColor: AppColors.bgCard,
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(color: AppColors.borderLight),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(color: AppColors.borderLight),
+                ),
+              ),
+            ),
+          ),
           /// MAP
           Container(
             height: 300,

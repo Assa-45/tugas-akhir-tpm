@@ -6,9 +6,10 @@ class BiometricService {
   static Future<bool> authenticate() async {
     try {
       return await _auth.authenticate(
-        localizedReason: 'Login menggunakan biometrik',
+        localizedReason: 'Please put your fingerprint on sensor for verification',
         options: const AuthenticationOptions(
           biometricOnly: true,
+          stickyAuth: true, 
         ),
       );
     } catch (e) {

@@ -18,11 +18,11 @@ class _TpmScreenState extends State<TpmScreen> {
   int _selectedMood = -1;
 
   final List<_MoodOption> _moods = [
-    _MoodOption('😊', 'Menyenangkan'),
-    _MoodOption('😤', 'Menantang'),
+    _MoodOption('😊', 'Happy'),
+    _MoodOption('😤', 'Exciting'),
     _MoodOption('🤯', 'Intense'),
-    _MoodOption('😴', 'Membosankan'),
-    _MoodOption('🥰', 'Sangat Suka'),
+    _MoodOption('😴', 'Bored'),
+    _MoodOption('🥰', 'Delighted'),
   ];
 
  void _submit() async {

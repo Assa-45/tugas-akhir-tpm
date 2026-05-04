@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
 import '../services/storage_service.dart';
+import '../services/notification_service.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -160,16 +161,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          'Sarah Amelia',
+                        Text(
+                          _name,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: AppColors.textPrimary,
                           ),
                         ),
-                        const Text(
-                          'sarah.amelia@email.com',
+                        Text(
+                          _email,
                           style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
                         ),
                       ],
@@ -278,9 +279,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 InfoCard(
                   child: Column(
                     children: [
-                      _InfoRow(icon: Icons.person_outline_rounded, label: 'Full Name', value: 'Sarah Amelia'),
+                      _InfoRow(icon: Icons.person_outline_rounded, label: 'Full Name', value: _name),
                       const Divider(height: 16),
-                      _InfoRow(icon: Icons.mail_outline_rounded, label: 'Email', value: 'sarah.amelia@email.com'),
+                      _InfoRow(icon: Icons.mail_outline_rounded, label: 'Email', value: _email),
                       const Divider(height: 16),
                       _InfoRow(icon: Icons.phone_outlined, label: 'Phone', value: '+62 812 3456 7890'),
                     ],
@@ -299,7 +300,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         label: 'Nearby Store Promos',
                         subtitle: 'Get notified about deals near you',
                         value: _notifPromo,
-                        onChanged: (v) => setState(() => _notifPromo = v),
+                        onChanged: (value) {
+                          setState(() {
+                            _notifPromo = value;
+                          });
+
+                          if (value) {
+                            NotificationService.showNotification();
+                          }
+                        }
                       ),
                       const Divider(height: 16),
                       _SwitchRow(
@@ -307,7 +316,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         label: 'Daily Color Tips',
                         subtitle: 'Personalized beauty tips every day',
                         value: _notifTip,
-                        onChanged: (v) => setState(() => _notifTip = v),
+                        onChanged: (value) {
+                          setState(() {
+                            _notifTip = value;
+                          });
+
+                          if (value) {
+                            NotificationService.showNotification();
+                          }
+                        }
                       ),
                       const Divider(height: 16),
                       _SwitchRow(
@@ -315,7 +332,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         label: 'Flash Sale Alerts',
                         subtitle: 'International brand flash sales',
                         value: _notifSale,
-                        onChanged: (v) => setState(() => _notifSale = v),
+                        onChanged: (value) {
+                          setState(() {
+                            _notifSale = value;
+                          });
+
+                          if (value) {
+                            NotificationService.showNotification();
+                          }
+                        }
                       ),
                     ],
                   ),

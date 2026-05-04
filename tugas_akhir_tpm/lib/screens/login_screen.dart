@@ -97,9 +97,16 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
 
   void _biometricLogin() async {
     if (!_biometricEnabled) {
-      await StorageService.setBiometricEnabled(true);
-      setState(() => _biometricEnabled = true);
-      return;
+      final authenticated = await BiometricService.authenticate();
+      if (authenticated) {
+        await StorageService.setBiometricEnabled(true);
+        setState(() => _biometricEnabled = true);
+        
+        if (!mounted) return;
+        
+        _showSuccessPopup();
+      }
+    return;
     }
 
     final isAuthenticated = await BiometricService.authenticate();
@@ -120,6 +127,44 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
       );
     }
   }
+
+
+  void _showSuccessPopup() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 60),
+            const SizedBox(height: 16),
+            const Text(
+              'Biometric is Active',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Now you can login faster with fingerprint',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.accent,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              child: const Text('Oke, Mengerti'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
