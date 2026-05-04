@@ -19,7 +19,7 @@ class NearbyScreen extends StatefulWidget {
 
 class _NearbyScreenState extends State<NearbyScreen> {
   int _selectedFilter = 0;
-  final List<String> _filters = ['All', 'Makeup', 'Skincare', 'Clothes'];
+  final List<String> _filters = ['All', 'Makeup', 'Bodycare', 'Clothes'];
   String? _selectedStoreName;
 
   List<_StoreData> _stores = [];
@@ -87,28 +87,41 @@ class _NearbyScreenState extends State<NearbyScreen> {
       /// marker
       final markers = stores.map<Marker>((store) {
         final isSelected = _selectedStoreName == store.name;
+        final baseColor = getMarkerColor(store.category, isSelected);
 
         return Marker(
-          width: isSelected ? 70 : 60,
-          height: isSelected ? 70 : 60,
+          width: isSelected ? 45 : 35, // Ukuran container
+          height: isSelected ? 45 : 35,
           point: LatLng(store.lat, store.lng),
           child: GestureDetector(
             onTap: () {
               setState(() {
                 _selectedStoreName = store.name;
               });
-
-              _mapController.move(
-                LatLng(store.lat, store.lng),
-                16,
-              );
-
+              _mapController.move(LatLng(store.lat, store.lng), 16);
               _showStoreDetail(context, store);
             },
-            child: Icon(
-              Icons.location_on,
-              size: isSelected ? 44 : 36,
-              color: getMarkerColor(store.category, isSelected),
+            child: Container(
+              decoration: BoxDecoration(
+                color: baseColor, // Warna isi (fill)
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.white, // Warna outline
+                  width: isSelected ? 3 : 2, // Outline lebih tebal jika dipilih
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Icon(
+                getIcon(store.category), 
+                size: isSelected ? 24 : 18,
+                color: Colors.white,
+              ),
             ),
           ),
         );
@@ -128,22 +141,20 @@ class _NearbyScreenState extends State<NearbyScreen> {
   // marker color
   Color getMarkerColor(String category, bool isSelected) {
     Color base;
-
     switch (category) {
       case "Makeup":
-        base = const Color(0xFFE57373); // coral
+        base = const Color(0xFFE57373);
         break;
-      case "Skincare":
-        base = const Color(0xFF64B5F6); // soft blue
+      case "Bodycare":
+        base = const Color(0xFF64B5F6);
         break;
       case "Clothes":
-        base = const Color(0xFFBA68C8); // lavender
+        base = const Color(0xFFBA68C8);
         break;
       default:
-        base = const Color(0xFF81C784); // soft green
+        base = const Color(0xFF81C784);
     }
-
-    return isSelected ? base.withOpacity(1.0) : base.withOpacity(0.75);
+    return isSelected ? base : base.withOpacity(0.9);
   }
 
   String mapCategory(String? raw) {
@@ -151,7 +162,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
       case "cosmetics":
         return "Makeup";
       case "beauty":
-        return "Skincare";
+        return "Bodycare";
       case "clothes":
         return "Clothes";
       default:
@@ -163,10 +174,10 @@ class _NearbyScreenState extends State<NearbyScreen> {
     switch (category) {
       case "Makeup":
         return Icons.face_retouching_natural_outlined;
-      case "Skincare":
+      case "Bodycare":
         return Icons.spa_outlined;
       case "Clothes":
-        return Icons.style_outlined;
+        return Icons.shopping_bag_rounded;
       default:
         return Icons.storefront_outlined;
     }
@@ -176,7 +187,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
     switch (category) {
       case "Makeup":
         return AppColors.primaryLight;
-      case "Skincare":
+      case "Bodycare":
         return AppColors.accentLight;
       case "Clothes":
         return AppColors.secondaryLight;
