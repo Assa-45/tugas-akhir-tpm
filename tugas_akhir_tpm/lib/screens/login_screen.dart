@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
-import 'main_screen.dart';
+import 'bottom_nav.dart';
 import 'register_screen.dart';
 import '../services/storage_service.dart';
 import '../services/biometric_service.dart';

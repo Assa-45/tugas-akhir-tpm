@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import 'home_screen.dart';
-import 'nearby_screen.dart';
-import 'game_screen.dart';
-import 'converter_screen.dart';
-import 'chatbot_screen.dart';
 import 'profile_screen.dart';
 import 'tpm_screen.dart';
 
@@ -21,20 +17,12 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
-    NearbyScreen(),
-    GameScreen(),
-    ConverterScreen(),
-    ChatbotScreen(),
     ProfileScreen(),
     TpmScreen(),
   ];
 
   final List<_NavItem> _navItems = const [
     _NavItem(icon: Icons.home_outlined, activeIcon: Icons.home_rounded, label: 'Home'),
-    _NavItem(icon: Icons.location_on_outlined, activeIcon: Icons.location_on_rounded, label: 'Nearby'),
-    _NavItem(icon: Icons.sports_esports_outlined, activeIcon: Icons.sports_esports_rounded, label: 'Game'),
-    _NavItem(icon: Icons.currency_exchange_outlined, activeIcon: Icons.currency_exchange_rounded, label: 'Convert'),
-    _NavItem(icon: Icons.chat_bubble_outline_rounded, activeIcon: Icons.chat_bubble_rounded, label: 'Bot'),
     _NavItem(icon: Icons.person_outline_rounded, activeIcon: Icons.person_rounded, label: 'Profile'),
     _NavItem(icon: Icons.favorite_border_rounded, activeIcon: Icons.favorite_rounded, label: 'TPM'),
   ];

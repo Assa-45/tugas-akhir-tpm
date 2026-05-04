@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
-import 'result_screen.dart';
+import 'game_screen.dart';
+import 'chatbot_screen.dart';
+import 'converter_screen.dart';
+import 'nearby_screen.dart';
+import 'scan_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,7 +45,6 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Avatar
                   Container(
                     width: 42,
                     height: 42,
@@ -52,7 +55,8 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(color: AppColors.border),
                     ),
-                    child: const Center(child: Text('👤', style: TextStyle(fontSize: 20))),
+                    child: const Center(
+                        child: Text('👤', style: TextStyle(fontSize: 20))),
                   ),
                 ],
               ),
@@ -61,10 +65,14 @@ class HomeScreen extends StatelessWidget {
 
               // ── Upload / Scan Banner ──
               GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ResultScreen()),
-                ),
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ScanScreen(),
+                    ),
+                  )
+                },
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(22),
@@ -85,10 +93,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'Analyze Your Colors',
                               style: TextStyle(
@@ -99,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 6),
                             Text(
-                              'Upload a photo and get your\npersonal color palette',
+                              'Upload a photo and discover your\npersonal color season & palette',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white70,
@@ -112,7 +120,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      // Decorative circles
                       SizedBox(
                         width: 70,
                         height: 90,
@@ -143,7 +150,8 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             const Center(
-                              child: Text('📸', style: TextStyle(fontSize: 36)),
+                              child: Text('📸',
+                                  style: TextStyle(fontSize: 36)),
                             ),
                           ],
                         ),
@@ -153,151 +161,70 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 28),
 
-              // ── Your Palette ──
-              SectionHeader(title: 'Your Palette', action: 'See all', onAction: () {}),
+              // ── Quick Access ──
+              const SectionHeader(title: 'Quick Access'),
               const SizedBox(height: 12),
-              InfoCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: AppColors.swatchTerracotta.withOpacity(0.12),
-                            borderRadius: BorderRadius.circular(99),
-                          ),
-                          child: Text(
-                            '🍂 Warm Autumn',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.swatchTerracotta,
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        const Text('Last update: 2 days ago',
-                            style: TextStyle(fontSize: 10, color: AppColors.textMuted)),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ColorSwatchTile(color: AppColors.swatchSienna, label: 'Sienna'),
-                        ColorSwatchTile(color: AppColors.swatchCopper, label: 'Copper'),
-                        ColorSwatchTile(color: AppColors.swatchMoss, label: 'Moss'),
-                        ColorSwatchTile(color: AppColors.swatchCamel, label: 'Camel'),
-                        ColorSwatchTile(color: AppColors.swatchBurgundy, label: 'Burgundy'),
-                        ColorSwatchTile(color: AppColors.swatchTerracotta, label: 'Terra'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              // ── Quick Actions ──
-              SectionHeader(title: 'Quick Actions'),
-              const SizedBox(height: 12),
-              Row(
+              GridView.count(
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.1,
                 children: [
                   _QuickAction(
                     icon: '🤖',
-                    label: 'Ask ChromaBot',
+                    label: 'ChromaBot',
                     color: AppColors.accentLight,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ChatbotScreen()),
+                      );
+                    },
                   ),
-                  const SizedBox(width: 10),
                   _QuickAction(
                     icon: '📍',
-                    label: 'Nearby Stores',
+                    label: 'Nearby',
                     color: AppColors.secondaryLight,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const NearbyScreen()),
+                      );
+                    },
                   ),
-                  const SizedBox(width: 10),
                   _QuickAction(
                     icon: '🎮',
                     label: 'Color Game',
                     color: AppColors.primaryLight,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const GameScreen()),
+                      );
+                    },
+                  ),
+                  _QuickAction(
+                    icon: '💱',
+                    label: 'Converter',
+                    color: const Color(0xFFE0F2F1),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ConverterScreen()),
+                      );
+                    },
                   ),
                 ],
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 28),
 
-              // ── Daily Tip ──
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.accentLight.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.accentLight),
-                ),
-                child: Row(
-                  children: [
-                    const Text('💡', style: TextStyle(fontSize: 24)),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Color Tip of the Day',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.accentDark,
-                            ),
-                          ),
-                          SizedBox(height: 3),
-                          Text(
-                            'Warm undertones glow best in earth tones. Try pairing terracotta with olive for a harmonious autumn look.',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: AppColors.textSecondary,
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              // ── Recent Analyses ──
-              SectionHeader(title: 'Recent Analyses', action: 'See all', onAction: () {}),
-              const SizedBox(height: 12),
-              _AnalysisHistoryCard(
-                type: '🍂 Warm Autumn',
-                subtitle: '14 colors · Deep · Muted',
-                date: '2 days ago',
-                swatchColors: [
-                  AppColors.swatchSienna,
-                  AppColors.swatchCopper,
-                  AppColors.swatchMoss,
-                ],
-              ),
-              const SizedBox(height: 8),
-              _AnalysisHistoryCard(
-                type: '🌸 Bright Spring',
-                subtitle: '12 colors · Warm · Clear',
-                date: '1 week ago',
-                swatchColors: [
-                  const Color(0xFFE8A878),
-                  const Color(0xFFD4785A),
-                  const Color(0xFF7DB87D),
-                ],
-              ),
+              // ── Explore Section (pengganti Recent Analyses) ──
+              _ExploreSection(),
 
               const SizedBox(height: 32),
             ],
@@ -308,10 +235,215 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// ── Explore Section ──
+class _ExploreSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header persuasif
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.accentLight.withOpacity(0.45),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.accentLight),
+          ),
+          child: const Row(
+            children: [
+              Text('🌟', style: TextStyle(fontSize: 22)),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'No analysis yet!',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.accentDark,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Take a photo and discover the colors that look best on you 💄',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        // Label
+        const Text(
+          'While you\'re at it, try exploring our other features',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        const SizedBox(height: 10),
+
+        // Card 1 — Game
+        _ExploreCard(
+          emoji: '🎮',
+          title: 'ColorMatch Game',
+          desc: 'Test your color knowledge! Guess the best color combo for each skin tone and rack up your highest score.',
+          badgeLabel: 'Mini Game',
+          badgeColor: AppColors.primaryLight,
+          badgeTextColor: AppColors.primaryDark,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GameScreen()),
+            );
+          },
+        ),
+        const SizedBox(height: 10),
+
+        // Card 2 — ChromaBot
+        _ExploreCard(
+          emoji: '🤖',
+          title: 'Ask ChromaBot',
+          desc: 'Got questions about makeup or outfits? ChromaBot is ready to give you personalized beauty advice.',
+          badgeLabel: 'AI Chatbot',
+          badgeColor: AppColors.accentLight,
+          badgeTextColor: AppColors.accentDark,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ChatbotScreen()),
+            );
+          },
+        ),
+        const SizedBox(height: 10),
+
+        // Card 3 — Nearby
+        _ExploreCard(
+          emoji: '📍',
+          title: 'Find Nearby Stores',
+          desc: 'Discover makeup and fashion stores around you. Filter by category and check them out on the map.',
+          badgeLabel: 'Location',
+          badgeColor: AppColors.secondaryLight,
+          badgeTextColor: AppColors.accentDark,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const NearbyScreen()),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _ExploreCard extends StatelessWidget {
+  final String emoji, title, desc, badgeLabel;
+  final Color badgeColor, badgeTextColor;
+  final VoidCallback onTap;
+
+  const _ExploreCard({
+    required this.emoji,
+    required this.title,
+    required this.desc,
+    required this.badgeLabel,
+    required this.badgeColor,
+    required this.badgeTextColor,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: InfoCard(
+        padding: const EdgeInsets.all(14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: badgeColor.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                  child: Text(emoji, style: const TextStyle(fontSize: 22))),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: badgeColor,
+                          borderRadius: BorderRadius.circular(99),
+                        ),
+                        child: Text(
+                          badgeLabel,
+                          style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w500,
+                              color: badgeTextColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    desc,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Icon(Icons.arrow_forward_ios_rounded,
+                size: 13, color: AppColors.textMuted),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ── Sub-widgets ──
 
 class _ScanButton extends StatelessWidget {
   const _ScanButton();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -320,10 +452,11 @@ class _ScanButton extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
+      child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: const [
-          Icon(Icons.camera_alt_outlined, size: 14, color: AppColors.accentDark),
+          Icon(Icons.camera_alt_outlined,
+              size: 14, color: AppColors.accentDark),
           SizedBox(width: 6),
           Text(
             'Start Analysis',
@@ -354,90 +487,32 @@ class _QuickAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: color),
-          ),
-          child: Column(
-            children: [
-              Text(icon, style: const TextStyle(fontSize: 22)),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textPrimary),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.45),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: color.withOpacity(0.8), width: 0.5),
         ),
-      ),
-    );
-  }
-}
-
-class _AnalysisHistoryCard extends StatelessWidget {
-  final String type;
-  final String subtitle;
-  final String date;
-  final List<Color> swatchColors;
-
-  const _AnalysisHistoryCard({
-    required this.type,
-    required this.subtitle,
-    required this.date,
-    required this.swatchColors,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InfoCard(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        children: [
-          Row(
-            children: swatchColors
-                .asMap()
-                .entries
-                .map((e) => Transform.translate(
-                      offset: Offset(e.key * -6.0, 0),
-                      child: Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: e.value,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.white, width: 1.5),
-                        ),
-                      ),
-                    ))
-                .toList(),
-          ),
-          const SizedBox(width: 6),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(type,
-                    style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary)),
-                Text(subtitle,
-                    style: const TextStyle(fontSize: 11, color: AppColors.textMuted)),
-              ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(icon, style: const TextStyle(fontSize: 22)),
+            const SizedBox(height: 5),
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textPrimary),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-          ),
-          Text(date, style: const TextStyle(fontSize: 11, color: AppColors.textMuted)),
-        ],
+          ],
+        ),
       ),
     );
   }
